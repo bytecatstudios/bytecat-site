@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ByteCat Studios — Where Code Meets Creativity</title>
+<link rel="icon" href="Assets/Imagotipo/ByteCat_simple.png">
+<link href="https://fonts.cdnfonts.com/css/heyam" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #1F2A44;
+    --purple: #8993FF;
+    --blue: #559AFF;
+    --lightblue: #AEDAFF;
+    --offwhite: #F6F6F6;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--offwhite);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(31,42,68,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(137,147,255,0.2);
+  }
+  .nav-logo { display: flex; align-items: center; text-decoration: none; }
+  .nav-logo img { height: 42px; width: auto; object-fit: contain; }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: rgba(255,255,255,0.7);
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em;
+    text-transform: uppercase; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--purple); }
+  .nav-cta {
+    padding: 9px 22px; border-radius: 50px;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    color: white !important; font-weight: 600 !important;
+    transition: opacity 0.3s, transform 0.3s !important;
+    text-transform: none !important; letter-spacing: 0 !important; font-size: 0.88rem !important;
+  }
+  .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; background: var(--dark);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; padding: 120px 60px 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 80% 50%, rgba(85,154,255,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(137,147,255,0.10) 0%, transparent 60%);
+  }
+  .stars { position: absolute; inset: 0; overflow: hidden; }
+  .star {
+    position: absolute; border-radius: 50%; background: white;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite var(--del, 0s); opacity: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: var(--op, 0.7); transform: scale(1); }
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 680px; animation: fadeUp 0.9s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-badge {
+    display: inline-block; padding: 6px 18px; border-radius: 50px;
+    border: 1px solid rgba(137,147,255,0.4); background: rgba(137,147,255,0.1);
+    color: var(--purple); font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 700; color: var(--white);
+    line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 12px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--purple), var(--blue), var(--lightblue));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub {
+    font-size: 1.05rem; color: rgba(174,218,255,0.75);
+    margin: 22px 0 40px; line-height: 1.7; font-weight: 300; max-width: 520px;
+  }
+  .hero-slogan { font-size: 0.9rem; color: rgba(255,255,255,0.35); font-style: italic; margin-bottom: 48px; }
+  .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-block; padding: 14px 34px; border-radius: 50px;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    color: white; font-weight: 600; font-size: 0.92rem; text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 8px 30px rgba(85,154,255,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(85,154,255,0.45); }
+  .btn-secondary {
+    display: inline-block; padding: 14px 34px; border-radius: 50px;
+    border: 1px solid rgba(137,147,255,0.4); color: var(--lightblue);
+    font-weight: 500; font-size: 0.92rem; text-decoration: none;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .btn-secondary:hover { border-color: var(--purple); background: rgba(137,147,255,0.1); }
+  .hero-visual {
+    position: absolute; right: 60px; top: 50%; transform: translateY(-50%);
+    width: 420px; animation: fadeUp 1s 0.3s ease both;
+  }
+  .cat-container {
+    width: 360px; height: 360px; position: relative;
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
+  }
+
+  /* SECTION SHARED */
+  section { padding: 100px 60px; }
+  .section-label {
+    display: inline-block; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.1; color: var(--dark);
+  }
+  .section-title em { font-style: normal; color: var(--purple); }
+  .section-title .heyam-word { font-family: 'Heyam', 'Trebuchet MS', cursive; letter-spacing: 0.02em; }
+
+  /* ABOUT */
+  #about { background: var(--white); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  .about-text p { margin-top: 24px; font-size: 1.05rem; line-height: 1.8; color: rgba(31,42,68,0.75); font-weight: 300; }
+  .about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .about-card {
+    padding: 28px 24px; border-radius: 16px; background: var(--offwhite);
+    border: 1px solid rgba(137,147,255,0.15); transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .about-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(85,154,255,0.12); }
+  .about-card-icon { font-size: 1.6rem; margin-bottom: 12px; }
+  .about-card h4 { font-size: 0.92rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .about-card p { font-size: 0.82rem; color: rgba(31,42,68,0.6); line-height: 1.6; font-weight: 300; }
+
+  /* IDENTITY */
+  #identity { background: var(--dark); position: relative; overflow: hidden; }
+  #identity::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(137,147,255,0.08), transparent 70%);
+  }
+  .identity-inner { max-width: 1200px; margin: 0 auto; }
+  .identity-inner .section-title { color: var(--white); }
+  .identity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px; }
+  .id-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--lightblue); margin-bottom: 24px;
+  }
+  .color-swatches { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+  .swatch { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .swatch-circle {
+    width: 60px; height: 60px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.1); transition: transform 0.3s; cursor: default;
+  }
+  .swatch-circle:hover { transform: scale(1.1); }
+  .swatch-hex { font-size: 0.7rem; color: rgba(255,255,255,0.5); font-family: 'Courier New', monospace; font-weight: 600; }
+  .typo-pair { display: flex; flex-direction: column; gap: 24px; }
+  .typo-item {
+    padding: 24px 28px; border-radius: 14px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(137,147,255,0.15);
+  }
+  .typo-role {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--purple); margin-bottom: 8px;
+  }
+  /* Heyam from CDN */
+  .typo-sample-heyam {
+    font-family: 'Heyam', 'Trebuchet MS', cursive;
+    font-size: 2.2rem; color: var(--white); letter-spacing: 0.02em;
+  }
+  .typo-sample-poppins { font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 400; color: var(--lightblue); }
+  .typo-note { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 4px; }
+  .slogans-col { display: flex; flex-direction: column; gap: 20px; }
+  .slogan-card {
+    padding: 30px 28px; border-radius: 16px;
+    border: 1px solid rgba(137,147,255,0.2); background: rgba(137,147,255,0.06);
+    position: relative; overflow: hidden;
+  }
+  .slogan-card::before {
+    content: '"'; position: absolute; top: -10px; left: 16px;
+    font-size: 6rem; color: rgba(137,147,255,0.1); font-weight: 800; line-height: 1;
+  }
+  .slogan-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+  .slogan-text { font-size: 1.15rem; font-weight: 600; color: var(--white); line-height: 1.4; }
+  .slogan-desc { font-size: 0.82rem; color: rgba(174,218,255,0.6); margin-top: 10px; line-height: 1.6; }
+
+  /* VALORES */
+  #valores { background: var(--offwhite); }
+  .valores-header { max-width: 1200px; margin: 0 auto 60px; }
+  .valores-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
+  .valor-card {
+    padding: 32px 24px; border-radius: 20px; background: var(--white);
+    border: 1px solid rgba(137,147,255,0.15); text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; position: relative; overflow: hidden;
+  }
+  .valor-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--purple), var(--blue));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+  }
+  .valor-card:hover::before { transform: scaleX(1); }
+  .valor-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(85,154,255,0.15); border-color: rgba(137,147,255,0.3); }
+  .valor-icon { font-size: 2.2rem; margin-bottom: 16px; display: block; }
+  .valor-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--purple); margin-bottom: 10px; }
+  .valor-card p { font-size: 0.78rem; color: rgba(31,42,68,0.65); line-height: 1.65; font-weight: 300; }
+
+  /* MISION / VISION */
+  #mision { background: var(--white); }
+  .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1200px; margin: 0 auto; }
+  .mv-card { padding: 50px 44px; border-radius: 24px; position: relative; overflow: hidden; }
+  .mv-card.dark { background: var(--dark); color: var(--white); }
+  .mv-card.light { background: linear-gradient(135deg, rgba(137,147,255,0.08), rgba(85,154,255,0.05)); border: 1px solid rgba(137,147,255,0.2); }
+  .mv-card-type { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lightblue); margin-bottom: 16px; }
+  .mv-card.light .mv-card-type { color: var(--blue); }
+  .mv-card h2 { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 20px; }
+  .mv-card.dark h2 { color: var(--white); }
+  .mv-card.light h2 { color: var(--dark); }
+  .mv-card p { font-size: 0.95rem; line-height: 1.85; font-weight: 300; }
+  .mv-card.dark p { color: rgba(174,218,255,0.75); }
+  .mv-card.light p { color: rgba(31,42,68,0.7); }
+  .mv-accent { position: absolute; bottom: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(137,147,255,0.15), transparent 70%); }
+
+  /* POLITICAS */
+  #politicas { background: var(--offwhite); }
+  .pol-inner { max-width: 900px; margin: 0 auto; }
+  .pol-list { display: flex; flex-direction: column; gap: 16px; margin-top: 50px; }
+  .pol-item {
+    display: flex; gap: 20px; padding: 28px 30px; border-radius: 16px;
+    border: 1px solid rgba(137,147,255,0.15); background: var(--white);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .pol-item:hover { border-color: rgba(137,147,255,0.35); transform: translateX(4px); }
+  .pol-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    color: white; font-size: 0.8rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .pol-text h4 { font-size: 0.92rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .pol-text p { font-size: 0.83rem; color: rgba(31,42,68,0.65); line-height: 1.65; font-weight: 300; }
+
+  /* OBJETIVOS */
+  #objetivos { background: var(--dark); position: relative; overflow: hidden; }
+  #objetivos::before {
+    content: ''; position: absolute; bottom: -200px; left: -200px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(85,154,255,0.08), transparent 70%);
+  }
+  .obj-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  .obj-inner .section-title { color: var(--white); }
+  .obj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+  .obj-card {
+    border-radius: 20px; border: 1px solid rgba(137,147,255,0.15);
+    background: rgba(255,255,255,0.04); overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  }
+  .obj-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-color: rgba(137,147,255,0.35); }
+  .obj-card-header {
+    padding: 24px 28px 20px; border-bottom: 1px solid rgba(137,147,255,0.1);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .obj-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
+  }
+  .obj-icon.short  { background: rgba(137,147,255,0.15); }
+  .obj-icon.mid    { background: rgba(85,154,255,0.15); }
+  .obj-icon.long   { background: rgba(174,218,255,0.15); }
+  .obj-card-header h3 { font-size: 0.88rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+  .obj-timespan { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 3px; }
+  .obj-timespan.short  { color: var(--purple); }
+  .obj-timespan.mid    { color: var(--blue); }
+  .obj-timespan.long   { color: var(--lightblue); }
+  .obj-card-body { padding: 22px 28px 28px; }
+  .obj-item {
+    display: flex; gap: 10px; align-items: flex-start; margin-bottom: 14px;
+    font-size: 0.8rem; color: rgba(174,218,255,0.7); line-height: 1.6; font-weight: 300;
+  }
+  .obj-item:last-child { margin-bottom: 0; }
+  .obj-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+  .obj-dot.short  { background: var(--purple); }
+  .obj-dot.mid    { background: var(--blue); }
+  .obj-dot.long   { background: var(--lightblue); }
+
+  /* MARKETING DIGITAL */
+  #mercadeo { background: var(--offwhite); }
+  .mercadeo-inner { max-width: 1200px; margin: 0 auto; }
+  .mercadeo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+  .merc-card {
+    padding: 36px 30px; border-radius: 20px; background: var(--white);
+    border: 1px solid rgba(137,147,255,0.15); transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .merc-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(85,154,255,0.12); }
+  .merc-card .icon { font-size: 2rem; margin-bottom: 18px; }
+  .merc-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+  .merc-card p { font-size: 0.83rem; color: rgba(31,42,68,0.6); line-height: 1.65; font-weight: 300; }
+
+  /* PRODUCTOS */
+  #productos { background: var(--dark); overflow: hidden; }
+  .prod-inner { max-width: 1200px; margin: 0 auto; }
+  .prod-inner .section-title { color: var(--white); }
+  .prod-inner .section-label { color: var(--blue); }
+  .product-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 60px; }
+  .product-phone { display: flex; justify-content: center; }
+  .phone-mockup-real {
+    width: 340px; border-radius: 30px; overflow: hidden;
+    border: 3px solid rgba(137,147,255,0.25);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 50px rgba(85,154,255,0.18), inset 0 0 0 1px rgba(255,255,255,0.06);
+    animation: float 5s ease-in-out infinite; position: relative;
+  }
+  .phone-mockup-real img { width: 100%; display: block; }
+  .phone-mockup-real::before {
+    content: ''; position: absolute; inset: 0; border-radius: 28px;
+    background: linear-gradient(180deg, rgba(137,147,255,0.06) 0%, transparent 40%, transparent 60%, rgba(85,154,255,0.08) 100%);
+    pointer-events: none; z-index: 1;
+  }
+  .product-info h3 { font-size: 2.2rem; font-weight: 700; color: var(--white); letter-spacing: -0.03em; margin-bottom: 16px; }
+  .product-tag {
+    display: inline-block; padding: 5px 14px; border-radius: 50px;
+    background: rgba(137,147,255,0.15); border: 1px solid rgba(137,147,255,0.3);
+    color: var(--purple); font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 24px;
+  }
+  .product-info p { font-size: 0.97rem; color: rgba(174,218,255,0.7); line-height: 1.85; font-weight: 300; margin-bottom: 32px; }
+  .btn-game {
+    display: inline-block; padding: 13px 32px; border-radius: 50px;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    color: white; font-weight: 600; font-size: 0.9rem; text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 8px 24px rgba(85,154,255,0.3); cursor: pointer; border: none;
+  }
+  .btn-game:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(85,154,255,0.45); }
+
+  /* CONNECT */
+  #connect { background: var(--dark); text-align: center; position: relative; overflow: hidden; }
+  #connect::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(85,154,255,0.1), transparent 70%);
+  }
+  .connect-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+  .connect-inner .section-title { color: var(--white); margin-bottom: 16px; }
+  .connect-inner p { color: rgba(174,218,255,0.65); font-size: 1rem; margin-bottom: 50px; font-weight: 300; }
+  .social-handle {
+    display: inline-block; padding: 14px 36px; border-radius: 50px;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    color: white; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.02em;
+    margin-bottom: 50px; box-shadow: 0 8px 30px rgba(85,154,255,0.4);
+  }
+  .social-icons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .social-btn {
+    display: flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 50px;
+    border: 1px solid rgba(137,147,255,0.25); background: rgba(137,147,255,0.06);
+    color: rgba(174,218,255,0.8); font-size: 0.83rem; font-weight: 500;
+    text-decoration: none; transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  }
+  .social-btn:hover { border-color: var(--purple); background: rgba(137,147,255,0.15); transform: translateY(-2px); color: white; }
+
+  /* FOOTER */
+  footer {
+    background: rgba(15,22,38,1); padding: 40px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(137,147,255,0.1);
+  }
+  .footer-slogan { font-size: 0.78rem; color: rgba(255,255,255,0.25); font-style: italic; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+  /* ── HAMBURGER BUTTON ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px; background: none; border: none;
+  }
+  .nav-hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: rgba(255,255,255,0.8); border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    /* NAV */
+    nav { padding: 14px 20px; }
+    .nav-links {
+      display: none; flex-direction: column; gap: 0;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: #141c32;
+      background: rgba(20,28,50,0.99);
+      backdrop-filter: blur(16px);
+      box-shadow: inset 0 0 0 100vmax rgba(20,28,50,0.99);
+      justify-content: center; align-items: center;
+      z-index: 99; padding: 80px 30px 30px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; text-align: center; }
+    .nav-links a {
+      display: block; padding: 16px 0;
+      font-size: 1.1rem; color: var(--white); border-bottom: 1px solid rgba(137,147,255,0.22);
+    }
+    .nav-links li:last-child a { border-bottom: none; margin-top: 20px; }
+    .nav-hamburger { display: flex; z-index: 101; position: relative; }
+
+    /* HERO */
+    .hero { padding: 100px 24px 60px; flex-direction: column; align-items: flex-start; min-height: auto; }
+    .hero-visual { display: none; }
+    .hero-content { max-width: 100%; }
+    .hero h1 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+    .hero-sub { font-size: 0.95rem; }
+    .hero-buttons { flex-direction: column; }
+    .btn-primary, .btn-secondary { text-align: center; }
+
+    /* SECTIONS */
+    section { padding: 60px 24px; }
+
+    /* ABOUT */
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-cards { grid-template-columns: 1fr 1fr; }
+
+    /* IDENTITY */
+    .identity-grid { grid-template-columns: 1fr; gap: 40px; }
+    .color-swatches { gap: 8px; }
+    .swatch-circle { width: 48px; height: 48px; }
+
+    /* VALORES */
+    .valores-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* MISIÓN */
+    .mv-grid { grid-template-columns: 1fr; }
+    .mv-card { padding: 36px 28px; }
+
+    /* POLÍTICAS */
+    .pol-item { padding: 20px 18px; }
+
+    /* OBJETIVOS */
+    .obj-grid { grid-template-columns: 1fr; gap: 16px; }
+
+    /* MARKETING */
+    .mercadeo-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* PRODUCTOS */
+    .product-showcase { grid-template-columns: 1fr; gap: 40px; }
+    .phone-mockup-real { width: 260px; }
+
+    /* CONNECT */
+    .social-icons { gap: 10px; }
+    .social-btn { padding: 10px 14px; font-size: 0.78rem; }
+
+    /* FOOTER */
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 30px 20px; }
+    .footer-slogan { display: none; }
+  }
+
+  @media (max-width: 520px) {
+    .about-cards { grid-template-columns: 1fr; }
+    .valores-grid { grid-template-columns: 1fr; }
+    .mercadeo-grid { grid-template-columns: 1fr; }
+    .typo-item[style*="display:flex"] { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="Assets/Imagotipo/ByteCat_HOR.png" alt="ByteCat Studios">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeNav()">Nosotros</a></li>
+    <li><a href="#identity" onclick="closeNav()">Identidad</a></li>
+    <li><a href="#valores" onclick="closeNav()">Valores</a></li>
+    <li><a href="#objetivos" onclick="closeNav()">Objetivos</a></li>
+    <li><a href="#productos" onclick="closeNav()">Productos</a></li>
+    <li>><a href="plan.html" onclick="closeNav()">Plan estratégico</a>"</li>
+    <li><a href="#connect" class="nav-cta" onclick="closeNav()">Conectar</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleNav()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="stars" id="stars"></div>
+  <div class="hero-content">
+    <span class="hero-badge">🎮 Indie Game Studio</span>
+    <h1>Where code<br>meets <em>creativity</em></h1>
+    <p class="hero-sub">Desarrollamos videojuegos innovadores y experiencias interactivas multiplataforma que fusionan tecnología avanzada con creatividad sin límites.</p>
+    <p class="hero-slogan">✦ "Por un miauñana innovador"</p>
+    <div class="hero-buttons">
+      <a href="#productos" class="btn-primary">Nuestros juegos</a>
+      <a href="SpaceCat.html" class="btn-secondary">Conoce ByteCat</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="cat-container">
+      <img src="Assets/Imagotipo/ByteCAT.png" alt="ByteCat Studios Logo" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 40px rgba(85,154,255,0.35));">
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <span class="section-label">¿Quiénes somos?</span>
+      <h2 class="section-title">Un estudio donde la<br><em>tecnología cobra vida</em></h2>
+      <p>ByteCat Studios es una empresa tecnológica enfocada en el desarrollo de videojuegos innovadores, experiencias interactivas y soluciones digitales orientadas al entretenimiento multiplataforma — PC, consola y dispositivos móviles.</p>
+      <p style="margin-top:14px;">Combinamos creatividad, programación avanzada y análisis de datos para crear experiencias inmersivas centradas en el jugador.</p>
+    </div>
+    <div class="about-cards reveal">
+      <div class="about-card">
+        <div class="about-card-icon">🖥️</div>
+        <h4>PC & Consola</h4>
+        <p>Experiencias de alto rendimiento para plataformas de escritorio y consola.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📱</div>
+        <h4>Móvil</h4>
+        <p>Juegos optimizados para iOS y Android con mecánicas accesibles.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🧠</div>
+        <h4>Análisis de Datos</h4>
+        <p>Métricas y decisiones basadas en datos para mejorar cada lanzamiento.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🎨</div>
+        <h4>Diseño Creativo</h4>
+        <p>Arte y narrativa que dan alma a cada mundo que construimos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IDENTITY -->
+<section id="identity">
+  <div class="identity-inner">
+    <div class="reveal">
+      <span class="section-label">Nuestra identidad</span>
+      <h2 class="section-title" style="color:var(--white)">Paleta de <em>colores</em> &<br>tipografías</h2>
+    </div>
+    <div class="identity-grid">
+      <div class="reveal">
+        <p class="id-label">Paleta de Colores</p>
+        <div class="color-swatches">
+          <div class="swatch"><div class="swatch-circle" style="background:#1F2A44;border-color:rgba(255,255,255,0.2);"></div><span class="swatch-hex">#1F2A44</span></div>
+          <div class="swatch"><div class="swatch-circle" style="background:#8993FF;"></div><span class="swatch-hex">#8993FF</span></div>
+          <div class="swatch"><div class="swatch-circle" style="background:#559AFF;"></div><span class="swatch-hex">#559AFF</span></div>
+          <div class="swatch"><div class="swatch-circle" style="background:#AEDAFF;"></div><span class="swatch-hex">#AEDAFF</span></div>
+          <div class="swatch"><div class="swatch-circle" style="background:#F6F6F6;border-color:rgba(255,255,255,0.15);"></div><span class="swatch-hex">#F6F6F6</span></div>
+        </div>
+        <p class="id-label">Tipografías</p>
+        <div class="typo-pair">
+          <div class="typo-item">
+            <p class="typo-role">Display — Heyam</p>
+            <p class="typo-sample-heyam">BYTECAT</p>
+            <p class="typo-note">Identidad, titulares y elementos de marca</p>
+          </div>
+          <div class="typo-item">
+            <p class="typo-role">Cuerpo — Poppins</p>
+            <p class="typo-sample-poppins">Where code meets creativity</p>
+            <p class="typo-note">Texto corrido, UI y comunicación</p>
+          </div>
+        </div>
+        <p style="color:rgba(174,218,255,0.4);font-size:0.78rem;margin-top:16px;font-style:italic;">"La combinación tipográfica equilibra creatividad y estructura profesional."</p>
+      </div>
+      <div class="slogans-col reveal">
+        <p class="id-label">Slogans de Marca</p>
+        <div class="slogan-card">
+          <p class="slogan-tag">Principal</p>
+          <p class="slogan-text">Where code meets creativity</p>
+          <p class="slogan-desc">Representa la esencia del estudio: transformar líneas de código en experiencias interactivas, visuales y significativas.</p>
+        </div>
+        <div class="slogan-card">
+          <p class="slogan-tag">Secundario</p>
+          <p class="slogan-text">Por un miauñana innovador</p>
+          <p class="slogan-desc">Integra la temática felina con la visión tecnológica — el futuro, accesible, amigable y original dentro de la industria digital.</p>
+        </div>
+        <div style="margin-top:8px;">
+          <p class="id-label">El Imagotipo</p>
+          <div class="typo-item" style="display:flex;gap:24px;align-items:center;">
+            <img src="Assets/Imagotipo/ByteCat_simple.png" alt="ByteCat isotipo" style="width:90px;height:90px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 0 12px rgba(137,147,255,0.4));">
+            <p style="font-size:0.83rem;color:rgba(174,218,255,0.65);line-height:1.7;font-weight:300;">El gato representa <strong style="color:var(--lightblue)">curiosidad, exploración y adaptabilidad</strong>. Su boca abierta es un juego conceptual entre <em style="color:var(--purple)">"Byte"</em> y <em style="color:var(--blue)">"Bite"</em> — la marca "muerde" la innovación para transformar código en experiencias interactivas. Este personaje, llamado <em style="color:var(--offwhite)">Bitty</em>, funciona como la mascota oficial del estudio y simboliza la unión entre código y creatividad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALORES -->
+<section id="valores">
+  <div class="valores-header reveal">
+    <span class="section-label">Lo que nos define</span>
+    <h2 class="section-title">Nuestros <em>valores</em></h2>
+  </div>
+  <div class="valores-grid">
+    <div class="valor-card reveal"><span class="valor-icon">🐾</span><h3>Creatividad</h3><p>Fomentamos ideas originales que dan vida a mundos, personajes y mecánicas únicas.</p></div>
+    <div class="valor-card reveal"><span class="valor-icon">🖥️</span><h3>Innovación tecnológica</h3><p>Integramos herramientas, motores gráficos y tecnologías emergentes para mejorar la experiencia del jugador.</p></div>
+    <div class="valor-card reveal"><span class="valor-icon">🎮</span><h3>Enfoque en el usuario</h3><p>Diseñamos cada producto pensando en la accesibilidad, diversión e inmersión de la comunidad gamer.</p></div>
+    <div class="valor-card reveal"><span class="valor-icon">👥</span><h3>Trabajo colaborativo</h3><p>Impulsamos el desarrollo conjunto entre programadores, diseñadores y artistas digitales.</p></div>
+    <div class="valor-card reveal"><span class="valor-icon">🌐</span><h3>Proyección global</h3><p>Creamos experiencias multiplataforma capaces de conectar con jugadores de distintas regiones y culturas.</p></div>
+  </div>
+</section>
+
+<!-- MISIÓN / VISIÓN -->
+<section id="mision">
+  <div class="mv-grid">
+    <div class="mv-card dark reveal">
+      <p class="mv-card-type">Misión</p>
+      <h2>Transformar código en experiencias</h2>
+      <p>Desarrollar videojuegos y soluciones digitales innovadoras que integren tecnología y creatividad para ofrecer experiencias interactivas inmersivas y de alta calidad para jugadores de todo el mundo.</p>
+      <div class="mv-accent"></div>
+    </div>
+    <div class="mv-card light reveal">
+      <p class="mv-card-type">Visión</p>
+      <h2>Referentes de la industria indie</h2>
+      <p>Convertirse en un estudio tecnológico referente en la industria del entretenimiento digital, reconocido por su innovación, identidad creativa y capacidad de crear experiencias multiplataforma que conecten con nuevas generaciones de jugadores.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POLÍTICAS (justo después de Misión/Visión) -->
+<section id="politicas">
+  <div class="pol-inner">
+    <div class="reveal">
+      <span class="section-label">Nuestro compromiso</span>
+      <h2 class="section-title">Políticas de <em>empresa</em></h2>
+    </div>
+    <div class="pol-list">
+      <div class="pol-item reveal"><div class="pol-num">1</div><div class="pol-text"><h4>Política de Calidad</h4><p>Desarrollamos productos digitales funcionales, optimizados y centrados en la experiencia del usuario, asegurando pruebas constantes y mejora continua en cada lanzamiento.</p></div></div>
+      <div class="pol-item reveal"><div class="pol-num">2</div><div class="pol-text"><h4>Política de Seguridad y Datos</h4><p>Garantizamos la protección de la información de los usuarios mediante buenas prácticas de desarrollo seguro y almacenamiento responsable de datos.</p></div></div>
+      <div class="pol-item reveal"><div class="pol-num">3</div><div class="pol-text"><h4>Política de Experiencia del Usuario</h4><p>Cada videojuego y aplicación será diseñada priorizando accesibilidad, usabilidad e inmersión, asegurando que la experiencia sea intuitiva y entretenida.</p></div></div>
+      <div class="pol-item reveal"><div class="pol-num">4</div><div class="pol-text"><h4>Política de Innovación</h4><p>Fomentamos la investigación constante en nuevas tecnologías, motores gráficos y tendencias digitales para mantenernos a la vanguardia de la industria.</p></div></div>
+      <div class="pol-item reveal"><div class="pol-num">5</div><div class="pol-text"><h4>Política de Trabajo Colaborativo</h4><p>Promovemos un entorno de respeto, creatividad y comunicación efectiva entre los miembros del equipo para potenciar el desarrollo integral de cada proyecto.</p></div></div>
+      <div class="pol-item reveal"><div class="pol-num">6</div><div class="pol-text"><h4>Política de Responsabilidad Digital</h4><p>Nos comprometemos a crear contenido responsable, inclusivo y respetuoso con la comunidad global de jugadores.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJETIVOS -->
+<section id="objetivos">
+  <div class="obj-inner">
+    <div class="reveal">
+      <span class="section-label">Hoja de ruta</span>
+      <h2 class="section-title">Nuestros <em>objetivos</em></h2>
+    </div>
+    <div class="obj-grid">
+      <div class="obj-card reveal">
+        <div class="obj-card-header">
+          <div class="obj-icon short">🚀</div>
+          <div><h3>Corto Plazo</h3><p class="obj-timespan short">0 – 6 meses</p></div>
+        </div>
+        <div class="obj-card-body">
+          <div class="obj-item"><span class="obj-dot short"></span>Publicar y mantener la versión Beta 0.9 abierta de Space Cat.</div>
+          <div class="obj-item"><span class="obj-dot short"></span>Recopilar retroalimentación de jugadores para mejorar estabilidad y jugabilidad.</div>
+          <div class="obj-item"><span class="obj-dot short"></span>Consolidar la presencia digital mediante sitio web y redes oficiales.</div>
+          <div class="obj-item"><span class="obj-dot short"></span>Fortalecer la identidad visual incluyendo imagotipo y mascota Bitty.</div>
+          <div class="obj-item"><span class="obj-dot short"></span>Documentar el desarrollo mediante actualizaciones y devlogs.</div>
+        </div>
+      </div>
+      <div class="obj-card reveal">
+        <div class="obj-card-header">
+          <div class="obj-icon mid">📈</div>
+          <div><h3>Mediano Plazo</h3><p class="obj-timespan mid">6 – 18 meses</p></div>
+        </div>
+        <div class="obj-card-body">
+          <div class="obj-item"><span class="obj-dot mid"></span>Lanzar una versión estable (Release Candidate) de Space Cat.</div>
+          <div class="obj-item"><span class="obj-dot mid"></span>Ampliar la comunidad de jugadores y testers del estudio.</div>
+          <div class="obj-item"><span class="obj-dot mid"></span>Publicar mejoras visuales, técnicas y de contenido en el juego.</div>
+          <div class="obj-item"><span class="obj-dot mid"></span>Explorar nuevas ideas dentro del universo creativo de ByteCat Studios.</div>
+          <div class="obj-item"><span class="obj-dot mid"></span>Establecer un flujo de trabajo continuo para futuros proyectos.</div>
+        </div>
+      </div>
+      <div class="obj-card reveal">
+        <div class="obj-card-header">
+          <div class="obj-icon long">🌟</div>
+          <div><h3>Largo Plazo</h3><p class="obj-timespan long">18 – 36 meses</p></div>
+        </div>
+        <div class="obj-card-body">
+          <div class="obj-item"><span class="obj-dot long"></span>Publicar oficialmente la versión final de Space Cat.</div>
+          <div class="obj-item"><span class="obj-dot long"></span>Desarrollar nuevos videojuegos en distintos géneros: ritmo, carreras o acción.</div>
+          <div class="obj-item"><span class="obj-dot long"></span>Consolidar el universo creativo de ByteCat Studios como identidad propia.</div>
+          <div class="obj-item"><span class="obj-dot long"></span>Posicionar la marca dentro del ecosistema de desarrollo independiente.</div>
+          <div class="obj-item"><span class="obj-dot long"></span>Participar en comunidades, eventos y convocatorias de videojuegos.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETING DIGITAL -->
+<section id="mercadeo">
+  <div class="mercadeo-inner">
+    <div class="reveal">
+      <span class="section-label">Estrategia</span>
+      <h2 class="section-title">Marketing <em>digital</em></h2>
+    </div>
+    <div class="mercadeo-grid">
+      <div class="merc-card reveal"><div class="icon">🌐</div><h4>Presencia Digital</h4><p>Difusión del estudio y sus juegos en internet, construyendo una identidad sólida en el ecosistema digital.</p></div>
+      <div class="merc-card reveal"><div class="icon">🎬</div><h4>Contenido</h4><p>Trailers, gameplay y avances del desarrollo que generan expectativa y conectan con la audiencia gamer.</p></div>
+      <div class="merc-card reveal"><div class="icon">🤝</div><h4>Comunidad</h4><p>Interacción activa con jugadores y seguidores, construyendo una comunidad fiel alrededor de la marca.</p></div>
+      <div class="merc-card reveal"><div class="icon">📲</div><h4>Redes Sociales</h4><p>Promoción en Instagram, Facebook, X, YouTube y TikTok con contenido relevante y entretenido.</p></div>
+      <div class="merc-card reveal"><div class="icon">📊</div><h4>Análisis</h4><p>Uso de métricas e indicadores clave para mejorar estrategias y optimizar el alcance de cada campaña.</p></div>
+      <div class="merc-card reveal" style="background:linear-gradient(135deg,rgba(137,147,255,0.08),rgba(85,154,255,0.05));border-color:rgba(137,147,255,0.3);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
+        <p style="color:var(--purple);font-weight:700;font-size:0.85rem;margin-bottom:6px;">Mercado Meta</p>
+        <p style="font-size:2rem;font-weight:800;color:var(--dark);letter-spacing:-0.02em;">10 – 25</p>
+        <p style="font-size:0.78rem;color:rgba(31,42,68,0.6);">años · mercado indie global</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS (penúltimo, antes de Conectar) -->
+<section id="productos">
+  <div class="prod-inner">
+    <div class="reveal">
+      <span class="section-label">Nuestros productos</span>
+      <h2 class="section-title" style="color:var(--white)">Juegos que<br><em>enganchan</em></h2>
+    </div>
+    <div class="product-showcase">
+      <div class="product-phone reveal">
+        <div class="phone-mockup-real">
+          <img src="Assets/Mockups/SP_MC.png" alt="Space Cat gameplay screenshot">
+        </div>
+      </div>
+      <div class="product-info reveal">
+        <span class="product-tag">Arcade · Móvil · Infinito</span>
+        <h3>Space Cat</h3>
+        <p>Un videojuego arcade de salto infinito donde el jugador controla a un gato que recolecta estrellas para continuar avanzando. Durante el recorrido puede obtener impulsos extra mediante meteoritos y estrellas arcoíris, o perder recursos al chocar con obstáculos, generando una experiencia dinámica y estratégica.</p>
+        <a href="SpaceCat.html" class="btn-game">Conocer más</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section id="connect">
+  <div class="connect-inner">
+    <div class="reveal">
+      <span class="section-label">Síguenos</span>
+      <h2 class="section-title">Conecta con <em class="heyam-word" style="color:var(--dark)">.</em><em class="heyam-word" style="color:var(--blue)">BYTE</em><em class="heyam-word" style="color:var(--purple)">CAT</em></h2>
+      <p>Devlogs · Avances · Anuncios · Trailers · Gameplays</p>
+    </div>
+    <div class="reveal"><div class="social-handle">@ByteCatStudios</div></div>
+    <div class="social-icons reveal">
+      <a href="#" class="social-btn">📸 Instagram</a>
+      <a href="#" class="social-btn">📘 Facebook</a>
+      <a href="#" class="social-btn">𝕏 X</a>
+      <a href="#" class="social-btn">▶ YouTube</a>
+      <a href="#" class="social-btn">🎵 TikTok</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="Assets/Imagotipo/ByteCat_HOR.png" alt="ByteCat Studios" style="height:36px;width:auto;object-fit:contain;opacity:0.6;">
+  <span class="footer-slogan">"Where code meets creativity" — Por un miauñana innovador</span>
+  <span style="font-size:0.75rem;color:rgba(255,255,255,0.2);">© 2026 ByteCat Studios</span>
+</footer>
+
+<script>
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 3 + 1;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*4}s;--del:${Math.random()*5}s;--op:${0.4+Math.random()*0.6};`;
+    starsEl.appendChild(s);
+  }
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+    document.getElementById('navHamburger').classList.toggle('open');
+    document.body.style.overflow = document.getElementById('navLinks').classList.contains('open') ? 'hidden' : '';
+  }
+  function closeNav() {
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('navHamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+</script>
+</body>
+</html>
