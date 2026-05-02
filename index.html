@@ -27,7 +27,6 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     display: flex; align-items: center; justify-content: space-between;
@@ -54,7 +53,6 @@
   }
   .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 
-  /* HERO */
   .hero {
     min-height: 100vh; background: var(--dark);
     display: flex; align-items: center; justify-content: center;
@@ -129,7 +127,6 @@
     50% { transform: translateY(-18px); }
   }
 
-  /* SECTION SHARED */
   section { padding: 100px 60px; }
   .section-label {
     display: inline-block; font-size: 0.75rem; font-weight: 700;
@@ -142,7 +139,6 @@
   .section-title em { font-style: normal; color: var(--purple); }
   .section-title .heyam-word { font-family: 'Heyam', 'Trebuchet MS', cursive; letter-spacing: 0.02em; }
 
-  /* ABOUT */
   #about { background: var(--white); }
   .about-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
@@ -159,7 +155,6 @@
   .about-card h4 { font-size: 0.92rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
   .about-card p { font-size: 0.82rem; color: rgba(31,42,68,0.6); line-height: 1.6; font-weight: 300; }
 
-  /* IDENTITY */
   #identity { background: var(--dark); position: relative; overflow: hidden; }
   #identity::before {
     content: ''; position: absolute; top: -200px; right: -200px;
@@ -190,7 +185,7 @@
     font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--purple); margin-bottom: 8px;
   }
-  /* Heyam from CDN */
+
   .typo-sample-heyam {
     font-family: 'Heyam', 'Trebuchet MS', cursive;
     font-size: 2.2rem; color: var(--white); letter-spacing: 0.02em;
@@ -211,7 +206,6 @@
   .slogan-text { font-size: 1.15rem; font-weight: 600; color: var(--white); line-height: 1.4; }
   .slogan-desc { font-size: 0.82rem; color: rgba(174,218,255,0.6); margin-top: 10px; line-height: 1.6; }
 
-  /* VALORES */
   #valores { background: var(--offwhite); }
   .valores-header { max-width: 1200px; margin: 0 auto 60px; }
   .valores-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
@@ -231,7 +225,6 @@
   .valor-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--purple); margin-bottom: 10px; }
   .valor-card p { font-size: 0.78rem; color: rgba(31,42,68,0.65); line-height: 1.65; font-weight: 300; }
 
-  /* MISION / VISION */
   #mision { background: var(--white); }
   .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1200px; margin: 0 auto; }
   .mv-card { padding: 50px 44px; border-radius: 24px; position: relative; overflow: hidden; }
@@ -247,7 +240,6 @@
   .mv-card.light p { color: rgba(31,42,68,0.7); }
   .mv-accent { position: absolute; bottom: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(137,147,255,0.15), transparent 70%); }
 
-  /* POLITICAS */
   #politicas { background: var(--offwhite); }
   .pol-inner { max-width: 900px; margin: 0 auto; }
   .pol-list { display: flex; flex-direction: column; gap: 16px; margin-top: 50px; }
@@ -266,7 +258,6 @@
   .pol-text h4 { font-size: 0.92rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
   .pol-text p { font-size: 0.83rem; color: rgba(31,42,68,0.65); line-height: 1.65; font-weight: 300; }
 
-  /* OBJETIVOS */
   #objetivos { background: var(--dark); position: relative; overflow: hidden; }
   #objetivos::before {
     content: ''; position: absolute; bottom: -200px; left: -200px;
@@ -309,7 +300,6 @@
   .obj-dot.mid    { background: var(--blue); }
   .obj-dot.long   { background: var(--lightblue); }
 
-  /* MARKETING DIGITAL */
   #mercadeo { background: var(--offwhite); }
   .mercadeo-inner { max-width: 1200px; margin: 0 auto; }
   .mercadeo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
@@ -322,7 +312,6 @@
   .merc-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
   .merc-card p { font-size: 0.83rem; color: rgba(31,42,68,0.6); line-height: 1.65; font-weight: 300; }
 
-  /* PRODUCTOS */
   #productos { background: var(--dark); overflow: hidden; }
   .prod-inner { max-width: 1200px; margin: 0 auto; }
   .prod-inner .section-title { color: var(--white); }
@@ -358,7 +347,6 @@
   }
   .btn-game:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(85,154,255,0.45); }
 
-  /* CONNECT */
   #connect { background: var(--dark); text-align: center; position: relative; overflow: hidden; }
   #connect::before {
     content: ''; position: absolute; inset: 0;
@@ -382,7 +370,6 @@
   }
   .social-btn:hover { border-color: var(--purple); background: rgba(137,147,255,0.15); transform: translateY(-2px); color: white; }
 
-  /* FOOTER */
   footer {
     background: rgba(15,22,38,1); padding: 40px 60px;
     display: flex; align-items: center; justify-content: space-between;
@@ -390,16 +377,13 @@
   }
   .footer-slogan { font-size: 0.78rem; color: rgba(255,255,255,0.25); font-style: italic; }
 
-  /* REVEAL */
   .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* SCROLLBAR */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--dark); }
   ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
 
-  /* ── HAMBURGER BUTTON ── */
   .nav-hamburger {
     display: none;
     flex-direction: column; gap: 5px;
@@ -415,12 +399,11 @@
   .nav-hamburger.open span:nth-child(2) { opacity: 0; }
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* ── RESPONSIVE ── */
+
   @media (max-width: 900px) {
-    /* NAV */
+
     nav { padding: 14px 20px; z-index: 1000; }
 
-    /* Full-screen overlay menu */
     .nav-links {
       display: none;
       flex-direction: column;
@@ -465,7 +448,6 @@
     }
     .nav-hamburger { display: flex; }
 
-    /* HERO */
     .hero { padding: 100px 24px 60px; flex-direction: column; align-items: flex-start; min-height: auto; }
     .hero-visual { display: none; }
     .hero-content { max-width: 100%; }
@@ -474,43 +456,32 @@
     .hero-buttons { flex-direction: column; }
     .btn-primary, .btn-secondary { text-align: center; }
 
-    /* SECTIONS */
     section { padding: 60px 24px; }
 
-    /* ABOUT */
     .about-grid { grid-template-columns: 1fr; gap: 40px; }
     .about-cards { grid-template-columns: 1fr 1fr; }
 
-    /* IDENTITY */
     .identity-grid { grid-template-columns: 1fr; gap: 40px; }
     .color-swatches { gap: 8px; }
     .swatch-circle { width: 48px; height: 48px; }
 
-    /* VALORES */
     .valores-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
 
-    /* MISIÓN */
     .mv-grid { grid-template-columns: 1fr; }
     .mv-card { padding: 36px 28px; }
 
-    /* POLÍTICAS */
     .pol-item { padding: 20px 18px; }
 
-    /* OBJETIVOS */
     .obj-grid { grid-template-columns: 1fr; gap: 16px; }
 
-    /* MARKETING */
     .mercadeo-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
 
-    /* PRODUCTOS */
     .product-showcase { grid-template-columns: 1fr; gap: 40px; }
     .phone-mockup-real { width: 260px; }
 
-    /* CONNECT */
     .social-icons { gap: 10px; }
     .social-btn { padding: 10px 14px; font-size: 0.78rem; }
 
-    /* FOOTER */
     footer { flex-direction: column; gap: 12px; text-align: center; padding: 30px 20px; }
     .footer-slogan { display: none; }
   }
@@ -525,7 +496,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
     <img src="Assets/Imagotipo/ByteCat_HOR.png" alt="ByteCat Studios">
@@ -544,7 +514,6 @@
   </button>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-bg"></div>
   <div class="stars" id="stars"></div>
@@ -565,7 +534,6 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="about-grid">
     <div class="about-text reveal">
@@ -599,7 +567,6 @@
   </div>
 </section>
 
-<!-- IDENTITY -->
 <section id="identity">
   <div class="identity-inner">
     <div class="reveal">
@@ -655,7 +622,6 @@
   </div>
 </section>
 
-<!-- VALORES -->
 <section id="valores">
   <div class="valores-header reveal">
     <span class="section-label">Lo que nos define</span>
@@ -670,7 +636,6 @@
   </div>
 </section>
 
-<!-- MISIÓN / VISIÓN -->
 <section id="mision">
   <div class="mv-grid">
     <div class="mv-card dark reveal">
@@ -687,7 +652,6 @@
   </div>
 </section>
 
-<!-- POLÍTICAS (justo después de Misión/Visión) -->
 <section id="politicas">
   <div class="pol-inner">
     <div class="reveal">
@@ -705,7 +669,6 @@
   </div>
 </section>
 
-<!-- OBJETIVOS -->
 <section id="objetivos">
   <div class="obj-inner">
     <div class="reveal">
@@ -756,7 +719,6 @@
   </div>
 </section>
 
-<!-- MARKETING DIGITAL -->
 <section id="mercadeo">
   <div class="mercadeo-inner">
     <div class="reveal">
@@ -778,7 +740,6 @@
   </div>
 </section>
 
-<!-- PRODUCTOS (penúltimo, antes de Conectar) -->
 <section id="productos">
   <div class="prod-inner">
     <div class="reveal">
@@ -801,7 +762,6 @@
   </div>
 </section>
 
-<!-- CONNECT -->
 <section id="connect">
   <div class="connect-inner">
     <div class="reveal">
@@ -820,7 +780,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <img src="Assets/Imagotipo/ByteCat_HOR.png" alt="ByteCat Studios" style="height:36px;width:auto;object-fit:contain;opacity:0.6;">
   <span class="footer-slogan">"Where code meets creativity" — Por un miauñana innovador</span>
