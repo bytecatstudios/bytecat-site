@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ByteCat Studios — Where Code Meets Creativity</title>
+<link rel="icon" href="Assets/Imagotipo/ByteCat_simple.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 <link href="https://fonts.cdnfonts.com/css/heyam" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -397,6 +400,99 @@
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--dark); }
   ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+  /* ── HAMBURGER BUTTON ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px; background: none; border: none;
+  }
+  .nav-hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: rgba(255,255,255,0.8); border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    /* NAV */
+    nav { padding: 14px 20px; }
+    .nav-links {
+      display: none; flex-direction: column; gap: 0;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(20,28,50,0.98);
+      backdrop-filter: blur(16px);
+      justify-content: center; align-items: center;
+      z-index: 99; padding: 80px 30px 30px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; text-align: center; }
+    .nav-links a {
+      display: block; padding: 16px 0;
+      font-size: 1.1rem; border-bottom: 1px solid rgba(137,147,255,0.1);
+    }
+    .nav-links li:last-child a { border-bottom: none; margin-top: 20px; }
+    .nav-hamburger { display: flex; z-index: 101; position: relative; }
+
+    /* HERO */
+    .hero { padding: 100px 24px 60px; flex-direction: column; align-items: flex-start; min-height: auto; }
+    .hero-visual { display: none; }
+    .hero-content { max-width: 100%; }
+    .hero h1 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+    .hero-sub { font-size: 0.95rem; }
+    .hero-buttons { flex-direction: column; }
+    .btn-primary, .btn-secondary { text-align: center; }
+
+    /* SECTIONS */
+    section { padding: 60px 24px; }
+
+    /* ABOUT */
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-cards { grid-template-columns: 1fr 1fr; }
+
+    /* IDENTITY */
+    .identity-grid { grid-template-columns: 1fr; gap: 40px; }
+    .color-swatches { gap: 8px; }
+    .swatch-circle { width: 48px; height: 48px; }
+
+    /* VALORES */
+    .valores-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* MISIÓN */
+    .mv-grid { grid-template-columns: 1fr; }
+    .mv-card { padding: 36px 28px; }
+
+    /* POLÍTICAS */
+    .pol-item { padding: 20px 18px; }
+
+    /* OBJETIVOS */
+    .obj-grid { grid-template-columns: 1fr; gap: 16px; }
+
+    /* MARKETING */
+    .mercadeo-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* PRODUCTOS */
+    .product-showcase { grid-template-columns: 1fr; gap: 40px; }
+    .phone-mockup-real { width: 260px; }
+
+    /* CONNECT */
+    .social-icons { gap: 10px; }
+    .social-btn { padding: 10px 14px; font-size: 0.78rem; }
+
+    /* FOOTER */
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 30px 20px; }
+    .footer-slogan { display: none; }
+  }
+
+  @media (max-width: 520px) {
+    .about-cards { grid-template-columns: 1fr; }
+    .valores-grid { grid-template-columns: 1fr; }
+    .mercadeo-grid { grid-template-columns: 1fr; }
+    .typo-item[style*="display:flex"] { flex-direction: column; }
+  }
 </style>
 </head>
 <body>
@@ -406,15 +502,18 @@
   <a href="#" class="nav-logo">
     <img src="Assets/Imagotipo/ByteCat_HOR.png" alt="ByteCat Studios">
   </a>
-  <ul class="nav-links">
-    <li><a href="#about">Nosotros</a></li>
-    <li><a href="#identity">Identidad</a></li>
-    <li><a href="#valores">Valores</a></li>
-    <li><a href="#objetivos">Objetivos</a></li>
-    <li><a href="#productos">Productos</a></li>
-    <li>><a href="plan.html">Plan estratégico</a>"</li>
-    <li><a href="#connect" class="nav-cta">Conectar</a></li>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeNav()">Nosotros</a></li>
+    <li><a href="#identity" onclick="closeNav()">Identidad</a></li>
+    <li><a href="#valores" onclick="closeNav()">Valores</a></li>
+    <li><a href="#objetivos" onclick="closeNav()">Objetivos</a></li>
+    <li><a href="#productos" onclick="closeNav()">Productos</a></li>
+    <li>><a href="plan.html" onclick="closeNav()">Plan estratégico</a>"</li>
+    <li><a href="#connect" class="nav-cta" onclick="closeNav()">Conectar</a></li>
   </ul>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleNav()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -719,6 +818,17 @@
     });
   }, { threshold: 0.12 });
   reveals.forEach(r => obs.observe(r));
+
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+    document.getElementById('navHamburger').classList.toggle('open');
+    document.body.style.overflow = document.getElementById('navLinks').classList.contains('open') ? 'hidden' : '';
+  }
+  function closeNav() {
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('navHamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
 </script>
 </body>
 </html>
