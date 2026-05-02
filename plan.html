@@ -21,7 +21,6 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'Poppins', sans-serif; background: var(--offwhite); color: var(--dark); overflow-x: hidden; }
 
-  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     display: flex; align-items: center; justify-content: space-between;
@@ -53,7 +52,6 @@
   }
   .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 
-  /* HERO PLAN */
   .plan-hero {
     background: var(--dark); padding: 160px 60px 100px;
     position: relative; overflow: hidden;
@@ -84,7 +82,6 @@
   }
   .plan-hero p { font-size: 1rem; color: rgba(174,218,255,0.7); font-weight: 300; line-height: 1.7; }
 
-  /* SECTION SHARED */
   section { padding: 100px 60px; }
   .section-label {
     display: inline-block; font-size: 0.75rem; font-weight: 700;
@@ -96,7 +93,6 @@
   }
   .section-title em { font-style: normal; color: var(--purple); }
 
-  /* RESUMEN TRIMESTRAL */
   #trimestres { background: var(--white); }
   .trimestres-inner { max-width: 1200px; margin: 0 auto; }
   .q-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -119,7 +115,6 @@
   .q-badge.pending  { background: rgba(137,147,255,0.12); color: var(--purple); border: 1px solid rgba(137,147,255,0.25); }
   .q-badge.target   { background: rgba(174,218,255,0.2); color: #3a7dcc; border: 1px solid rgba(174,218,255,0.4); }
 
-  /* KPIs */
   #kpis { background: var(--dark); position: relative; overflow: hidden; }
   #kpis::before {
     content: ''; position: absolute; top: -150px; right: -150px; width: 500px; height: 500px;
@@ -140,7 +135,6 @@
   .kpi-metric { font-size: 0.75rem; color: rgba(137,147,255,0.8); margin-bottom: 10px; font-weight: 500; }
   .kpi-resp { font-size: 0.72rem; color: rgba(174,218,255,0.5); font-weight: 300; }
 
-  /* DESARROLLO */
   #desarrollo { background: var(--offwhite); }
   .dev-inner { max-width: 1200px; margin: 0 auto; }
   .dev-timeline { display: flex; flex-direction: column; gap: 0; }
@@ -170,7 +164,6 @@
     font-size: 0.62rem; font-weight: 600; color: var(--blue); letter-spacing: 0.06em;
   }
 
-  /* PRÓXIMOS PASOS */
   #pasos { background: var(--dark); position: relative; overflow: hidden; }
   #pasos::before {
     content: ''; position: absolute; bottom: -150px; left: -150px;
@@ -196,7 +189,6 @@
   .paso-text h4 { font-size: 0.92rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
   .paso-text p { font-size: 0.78rem; color: rgba(137,147,255,0.8); font-weight: 500; }
 
-  /* FODA */
   #foda { background: var(--white); }
   .foda-inner { max-width: 1200px; margin: 0 auto; }
   .foda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -234,13 +226,11 @@
   .foda-item-text { font-size: 0.78rem; color: rgba(31,42,68,0.7); line-height: 1.6; font-weight: 300; }
   .foda-item-text strong { color: var(--dark); font-weight: 600; }
 
-  /* TOP ACCENT BAR per card */
   .foda-card.foda-f { border-top: 3px solid var(--dark); }
   .foda-card.foda-o { border-top: 3px solid var(--purple); }
   .foda-card.foda-d { border-top: 3px solid var(--blue); }
   .foda-card.foda-a { border-top: 3px solid #AEDAFF; }
 
-  /* FOOTER */
   footer {
     background: rgba(15,22,38,1); padding: 40px 60px;
     display: flex; align-items: center; justify-content: space-between;
@@ -248,16 +238,13 @@
   }
   .footer-slogan { font-size: 0.78rem; color: rgba(255,255,255,0.25); font-style: italic; }
 
-  /* REVEAL */
   .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* SCROLLBAR */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--dark); }
   ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
 
-  /* ── HAMBURGER ── */
   .nav-hamburger {
     display: none; flex-direction: column; gap: 5px;
     cursor: pointer; padding: 4px; background: none; border: none;
@@ -272,12 +259,9 @@
   .nav-hamburger.open span:nth-child(2) { opacity: 0; }
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    /* NAV */
     nav { padding: 14px 18px; z-index: 1000; }
 
-    /* Full-screen overlay menu */
     .nav-links {
       display: none;
       flex-direction: column;
@@ -323,34 +307,26 @@
     .nav-back { display: none; }
     .nav-hamburger { display: flex; }
 
-    /* HERO */
     .plan-hero { padding: 120px 24px 70px; }
     .plan-hero h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
 
-    /* SECTIONS */
     section { padding: 60px 20px; }
 
-    /* CRONOGRAMA — stack columns */
     .q-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
 
-    /* KPIs */
     .kpi-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
     .kpi-card { padding: 22px 18px; }
     .kpi-value { font-size: 1.25rem; }
 
-    /* DESARROLLO — months stack */
     .dev-months { grid-template-columns: 1fr; gap: 10px; }
     .dev-q-label { font-size: 0.7rem; padding: 6px 14px; }
 
-    /* PASOS */
     .paso-item { padding: 18px 16px; gap: 12px; }
 
-    /* FODA */
     .foda-grid { grid-template-columns: 1fr; gap: 16px; }
     .foda-header { padding: 18px 20px 14px; }
     .foda-body { padding: 16px 20px 22px; }
 
-    /* FOOTER */
     footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 20px; }
     footer img { height: 28px; }
     .footer-slogan { display: none; }
@@ -365,7 +341,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">
     <img src="Assets/Imagotipo/ByteCat_HOR.png" alt="ByteCat Studios">
@@ -382,7 +357,6 @@
   </button>
 </nav>
 
-<!-- HERO -->
 <div class="plan-hero">
   <div class="stars" id="stars"></div>
   <div class="plan-hero-inner">
@@ -392,7 +366,6 @@
   </div>
 </div>
 
-<!-- CRONOGRAMA TRIMESTRAL -->
 <section id="trimestres">
   <div class="trimestres-inner">
     <div class="reveal">
@@ -401,7 +374,6 @@
     </div>
     <div class="q-grid reveal">
 
-      <!-- Q1 -->
       <div>
         <div class="q-col-header">Q1<div class="q-col-sub">Ene – Mar</div></div>
         <div class="q-area-block"><div class="q-area-name">🎮 Desarrollo</div><div class="q-badge active">Completado</div><div class="q-area-text">Concepto, prototipo y bases arcade de Space Cat</div></div>
@@ -411,7 +383,6 @@
         <div class="q-area-block"><div class="q-area-name">🚀 Lanzamiento</div><div class="q-badge target">Meta</div><div class="q-area-text">Investigación de plataformas y stores</div></div>
       </div>
 
-      <!-- Q2 -->
       <div>
         <div class="q-col-header">Q2<div class="q-col-sub">Abr – Jun</div></div>
         <div class="q-area-block"><div class="q-area-name">🎮 Desarrollo</div><div class="q-badge active">Completado</div><div class="q-area-text">Alpha testing completado con retroalimentación inicial</div></div>
@@ -421,7 +392,6 @@
         <div class="q-area-block"><div class="q-area-name">🚀 Lanzamiento</div><div class="q-badge target">Meta</div><div class="q-area-text">Registro en Steam / App Stores</div></div>
       </div>
 
-      <!-- Q3 -->
       <div>
         <div class="q-col-header">Q3<div class="q-col-sub">Jul – Sep</div></div>
         <div class="q-area-block"><div class="q-area-name">🎮 Desarrollo</div><div class="q-badge active">Actual</div><div class="q-area-text">Beta 0.9 abierta, bug fixing, balance y optimización</div></div>
@@ -431,7 +401,6 @@
         <div class="q-area-block"><div class="q-area-name">🚀 Lanzamiento</div><div class="q-badge target">Meta</div><div class="q-area-text">Wishlist campaign, press kits</div></div>
       </div>
 
-      <!-- Q4 -->
       <div>
         <div class="q-col-header">Q4<div class="q-col-sub">Oct – Dic</div></div>
         <div class="q-area-block"><div class="q-area-name">🎮 Desarrollo</div><div class="q-badge active">Meta</div><div class="q-area-text">Release Candidate y versión estable 1.0</div></div>
@@ -445,7 +414,6 @@
   </div>
 </section>
 
-<!-- KPIs -->
 <section id="kpis">
   <div class="kpis-inner">
     <div class="reveal">
@@ -499,7 +467,6 @@
   </div>
 </section>
 
-<!-- DESARROLLO DEL JUEGO -->
 <section id="desarrollo">
   <div class="dev-inner">
     <div class="reveal">
@@ -596,7 +563,6 @@
   </div>
 </section>
 
-<!-- PRÓXIMOS PASOS -->
 <section id="pasos">
   <div class="pasos-inner">
     <div class="reveal">
@@ -632,7 +598,6 @@
   </div>
 </section>
 
-<!-- ANÁLISIS FODA -->
 <section id="foda">
   <div class="foda-inner">
     <div class="reveal">
@@ -641,7 +606,6 @@
     </div>
     <div class="foda-grid">
 
-      <!-- FORTALEZAS -->
       <div class="foda-card foda-f reveal">
         <div class="foda-header">
           <div class="foda-letter f">F</div>
@@ -658,7 +622,6 @@
         </div>
       </div>
 
-      <!-- OPORTUNIDADES -->
       <div class="foda-card foda-o reveal">
         <div class="foda-header">
           <div class="foda-letter o">O</div>
@@ -673,7 +636,6 @@
         </div>
       </div>
 
-      <!-- DEBILIDADES -->
       <div class="foda-card foda-d reveal">
         <div class="foda-header">
           <div class="foda-letter d">D</div>
@@ -688,7 +650,6 @@
         </div>
       </div>
 
-      <!-- AMENAZAS -->
       <div class="foda-card foda-a reveal">
         <div class="foda-header">
           <div class="foda-letter a">A</div>
@@ -707,7 +668,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <img src="Assets/Imagotipo/ByteCat_HOR.png" alt="ByteCat Studios" style="height:36px;width:auto;object-fit:contain;opacity:0.6;">
   <span class="footer-slogan">Plan de Acción Estratégico 2026</span>
