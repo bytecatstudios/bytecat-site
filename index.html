@@ -382,7 +382,7 @@ function endGame(won){
   state = 'over';
   document.getElementById('hud').classList.add('hidden');
   document.getElementById('touchctl').classList.add('hidden');
-  document.getElementById('endTitle').textContent = won ? '¡LAGO LIMPIO!' : 'LAGO CONTAMINADO';
+  document.getElementById('endTitle').textContent = won ? '¡RÍO LIMPIO!' : 'RÍO CONTAMINADO';
   document.getElementById('finalScore').textContent = score;
   document.getElementById('endScreen').classList.remove('hidden');
 }
