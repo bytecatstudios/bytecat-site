@@ -209,10 +209,10 @@
 
     <div class="overlay" id="startScreen">
       <div class="title pixel">ECOCAÑÓN</div>
-      <div class="subtitle">🐱 Ayuda al gatito a limpiar el lago</div>
+      <div class="subtitle">Ayuda al gatito a limpiar el lago</div>
       <div class="rules">
-        Mueve la barca con <b>◀ ▶</b>, las flechas, <b>A/D</b> o arrastrando el dedo.
-        Atrapa la basura con tu anzuelo antes de que se escape.
+        Muévete con <b>◀ ▶</b>, las flechas o <b>A/D</b>.
+        Haz <b>click o toca el agua</b> sobre la basura para bajar el anzuelo y atraparla.
         Si el lago se contamina demasiado, ¡se acabó el juego!
       </div>
       <button class="playbtn" id="btnStart">JUGAR</button>
@@ -272,8 +272,52 @@ const boat = {
 };
 
 const keys = {left:false, right:false};
-let pointerActive = false;
-let pointerX = null;
+
+// ---------- Hook (anzuelo) ----------
+const HOOK_REST_DROP = 34;   // qué tan abajo cuelga en reposo, relativo a la línea de agua
+const HOOK_MAX_REACH = 300;  // distancia máxima de lanzamiento desde el punto de reposo
+const HOOK_CAST_SPEED = 520;
+const HOOK_RETRIEVE_SPEED = 430;
+const HOOK_CATCH_R = 26;
+
+function hookRestPos(){
+  return { x: boat.x, y: WATER_LINE + HOOK_REST_DROP };
+}
+
+const hook = {
+  x: hookRestPos().x,
+  y: hookRestPos().y,
+  state: 'idle', // idle | casting | retrieving
+  target: {x:0, y:0},
+  caught: null,
+};
+
+function canvasPointerXY(clientX, clientY){
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: (clientX - rect.left) / rect.width * W,
+    y: (clientY - rect.top) / rect.height * H,
+  };
+}
+
+function tryCast(clientX, clientY){
+  if(state !== 'playing') return;
+  if(hook.state !== 'idle') return;
+  const p = canvasPointerXY(clientX, clientY);
+  const rest = hookRestPos();
+  let tx = Math.max(14, Math.min(W - 14, p.x));
+  let ty = Math.max(WATER_LINE + 6, Math.min(H - 12, p.y));
+  const dx = tx - rest.x, dy = ty - rest.y;
+  const dist = Math.hypot(dx, dy);
+  if(dist > HOOK_MAX_REACH){
+    const s = HOOK_MAX_REACH / dist;
+    tx = rest.x + dx * s;
+    ty = rest.y + dy * s;
+  }
+  hook.target = {x: tx, y: ty};
+  hook.state = 'casting';
+  ripples.push({x: tx, y: ty, life: 1});
+}
 
 const trashTypes = [
   { hue: 0,    scale: 1.0, speedMul: 1.0, value: 10 },
@@ -312,6 +356,10 @@ function resetGame(){
   spawnTimer = 0; spawnInterval = 1.6;
   trashList = []; ripples = []; popups = [];
   boat.x = W/2; boat.vx = 0;
+  hook.state = 'idle';
+  hook.caught = null;
+  const rest = hookRestPos();
+  hook.x = rest.x; hook.y = rest.y;
 }
 
 function updateHUD(){
@@ -349,19 +397,9 @@ window.addEventListener('keyup', (e)=>{
   if(e.key === 'ArrowRight' || e.key.toLowerCase()==='d') keys.right = false;
 });
 
-function canvasPointerX(clientX){
-  const rect = canvas.getBoundingClientRect();
-  const relX = (clientX - rect.left) / rect.width;
-  return relX * W;
-}
 canvas.addEventListener('pointerdown', (e)=>{
-  pointerActive = true;
-  pointerX = canvasPointerX(e.clientX);
+  tryCast(e.clientX, e.clientY);
 });
-canvas.addEventListener('pointermove', (e)=>{
-  if(pointerActive) pointerX = canvasPointerX(e.clientX);
-});
-window.addEventListener('pointerup', ()=>{ pointerActive = false; });
 
 function bindHold(el, onFn, offFn){
   el.addEventListener('pointerdown', (e)=>{ e.preventDefault(); onFn(); });
@@ -389,18 +427,13 @@ function update(dt){
 
   // boat movement
   const accel = 620, friction = 720, maxSpeed = 260;
-  if(pointerActive && pointerX !== null){
-    const dx = pointerX - boat.x;
-    boat.vx = Math.max(-maxSpeed, Math.min(maxSpeed, dx * 6));
-  } else {
-    if(keys.left) boat.vx -= accel*dt;
-    if(keys.right) boat.vx += accel*dt;
-    if(!keys.left && !keys.right){
-      if(boat.vx > 0) boat.vx = Math.max(0, boat.vx - friction*dt);
-      else boat.vx = Math.min(0, boat.vx + friction*dt);
-    }
-    boat.vx = Math.max(-maxSpeed, Math.min(maxSpeed, boat.vx));
+  if(keys.left) boat.vx -= accel*dt;
+  if(keys.right) boat.vx += accel*dt;
+  if(!keys.left && !keys.right){
+    if(boat.vx > 0) boat.vx = Math.max(0, boat.vx - friction*dt);
+    else boat.vx = Math.min(0, boat.vx + friction*dt);
   }
+  boat.vx = Math.max(-maxSpeed, Math.min(maxSpeed, boat.vx));
   boat.x += boat.vx * dt;
   boat.x = Math.max(BOAT_HALF_W, Math.min(W - BOAT_HALF_W, boat.x));
 
@@ -418,29 +451,61 @@ function update(dt){
     spawnTrash();
   }
 
-  // hook position: below stern of boat
-  const hookX = boat.x;
-  const hookY = WATER_LINE + 34;
-  const hookR = 40;
+  // ---- hook state machine ----
+  if(hook.state === 'casting'){
+    const dx = hook.target.x - hook.x, dy = hook.target.y - hook.y;
+    const dist = Math.hypot(dx, dy);
+    const step = HOOK_CAST_SPEED * dt;
+    if(dist <= step){
+      hook.x = hook.target.x; hook.y = hook.target.y;
+      hook.state = 'retrieving';
+    } else {
+      hook.x += dx/dist*step;
+      hook.y += dy/dist*step;
+    }
+  } else if(hook.state === 'retrieving'){
+    const rest = hookRestPos();
+    const dx = rest.x - hook.x, dy = rest.y - hook.y;
+    const dist = Math.hypot(dx, dy);
+    const step = HOOK_RETRIEVE_SPEED * dt;
+    if(dist <= step){
+      hook.x = rest.x; hook.y = rest.y;
+      if(hook.caught){
+        const t = hook.caught;
+        score += t.value;
+        pollution = Math.max(0, pollution - 0.4);
+        popups.push({x: hook.x, y: hook.y, life:1, text:'+'+t.value});
+        const idx = trashList.indexOf(t);
+        if(idx >= 0) trashList.splice(idx,1);
+        hook.caught = null;
+      }
+      hook.state = 'idle';
+    } else {
+      hook.x += dx/dist*step;
+      hook.y += dy/dist*step;
+    }
+  } else {
+    const rest = hookRestPos();
+    hook.x = rest.x;
+    hook.y = rest.y;
+  }
 
   for(let i = trashList.length - 1; i >= 0; i--){
     const t = trashList[i];
-    if(t.caught){
-      t.scaleAnim -= dt*3.2;
-      t.y -= dt*40;
-      if(t.scaleAnim <= 0) trashList.splice(i,1);
+    if(t === hook.caught){
+      t.x = hook.x; t.y = hook.y;
       continue;
     }
     t.x += t.vx * dt;
     t.bob += dt*2.4;
 
-    const dx = t.x - hookX, dy = (t.y) - hookY;
-    if(Math.sqrt(dx*dx+dy*dy) < hookR){
-      t.caught = true;
-      score += t.value;
-      pollution = Math.max(0, pollution - 0.4);
-      popups.push({x:t.x, y:t.y, life:1, text:'+'+t.value});
-      continue;
+    if(hook.state === 'casting'){
+      const dx = t.x - hook.x, dy = t.y - hook.y;
+      if(Math.hypot(dx,dy) < HOOK_CATCH_R){
+        hook.caught = t;
+        hook.state = 'retrieving';
+        continue;
+      }
     }
 
     if(t.x < -80 || t.x > W + 80){
@@ -453,6 +518,11 @@ function update(dt){
         return;
       }
     }
+  }
+
+  for(let i = ripples.length-1; i>=0; i--){
+    ripples[i].life -= dt*1.6;
+    if(ripples[i].life <= 0) ripples.splice(i,1);
   }
 
   for(let i = popups.length-1; i>=0; i--){
@@ -498,18 +568,30 @@ function drawBoat(){
   ctx.drawImage(imgCat, sx, 0, catFrameW, catFrameH, -drawW/2, -drawH + 30, drawW, drawH);
   ctx.restore();
 
-  // fishing line to hook
-  const hookX = boat.x, hookY = WATER_LINE + 34;
+  // fishing line to hook (anzuelo puede estar lanzado lejos de la barca)
   ctx.strokeStyle = 'rgba(20,20,20,0.55)';
   ctx.lineWidth = 2;
   ctx.beginPath();
   ctx.moveTo(boat.x + 26, boat.y - 92 + bob);
-  ctx.lineTo(hookX, hookY);
+  ctx.lineTo(hook.x, hook.y);
   ctx.stroke();
   ctx.fillStyle = '#c0392b';
   ctx.beginPath();
-  ctx.arc(hookX, hookY, 4, 0, Math.PI*2);
+  ctx.arc(hook.x, hook.y, 5, 0, Math.PI*2);
   ctx.fill();
+}
+
+function drawRipples(){
+  for(const r of ripples){
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, r.life) * 0.6;
+    ctx.strokeStyle = '#eaf7f0';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(r.x, r.y, (1 - r.life) * 34, 0, Math.PI*2);
+    ctx.stroke();
+    ctx.restore();
+  }
 }
 
 function drawTrash(){
@@ -540,6 +622,7 @@ function drawPopups(){
 function render(){
   ctx.clearRect(0,0,W,H);
   drawBackground();
+  drawRipples();
   drawTrash();
   drawBoat();
   drawPopups();
